@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/include/templateRegister.xhtml">
+        <ui:define name="head">
+            <title>Register</title>
+            <!-- Custom styles for this template -->
+            <!--<h:outputStylesheet name="css/font-awesome.min.css"/>-->
+            <!--<h:outputStylesheet name="css/bootstrap-4.0.0-beta.1.css"/>-->
+        </ui:define>
+        <ui:define name="body">
+            <div class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-center display-4">Cart Share</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="py-5">
+                                <h1 class="mb-4">Registration</h1>
+                                <h:form id="myregisterform">
+                                    <div class="form-group"> <label>Email Address</label>
+                                        <h:inputText id="email" required="True" requiredMessage="Email is Mandatory" class="form-control" a:placeholder="Enter email" value="#{registerControl.userEmail}"/> </div>
+                                    <div class="form-group"> <label>First Name</label>
+                                        <h:inputText id="firstname" required="True" requiredMessage="please fill first name" class="form-control" a:placeholder="Enter first name" value="#{registerControl.userfirstname}"/> </div>
+                                    <div class="form-group"> <label>Last Name</label>
+                                        <h:inputText id="lastname" required="True" requiredMessage="please fill last name" class="form-control" a:placeholder="Enter last name" value="#{registerControl.userlastname}"/></div>
+                                    <div class="form-group"> <label>Password</label>
+                                        <h:inputSecret id="password" required="True" requiredMessage="password cannot be empty" class="form-control" a:placeholder="Password" value="#{registerControl.userpassword}"/> </div>
+                                    <div class="form-group"> <label>Password</label>
+                                        <h:inputSecret id="repassword" required="True" requiredMessage="password cannot be empty" class="form-control" a:placeholder="Reenter Password" value="#{registerControl.userREpassword}"/>
+                                    </div>
+                                    <div class="#{registerControl.errorclass}">
+                                        <h:outputLabel value="#{registerControl.errorMSG}" />    
+                                    </div>
+                                    <h:commandButton value="Register" class="btn btn-primary" action="#{registerControl.register()}"/>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition> 
+</html>

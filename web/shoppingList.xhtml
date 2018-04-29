@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/WEB-INF/include/templateshopping.xhtml">
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <f:metadata>
+                <f:viewAction action="#{loginControl.loggedin()}" />
+                <f:viewAction action="#{shoppingListControl.loadGrouplist()}" />
+            </f:metadata>
+        </ui:define>
+        <ui:define name="body">
+
+            <div class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h3 class="display-4 text-center">Cart Share</h3>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <h:form>
+                                <h:commandButton class="btn btn-primary btn-lg" value="Logout" action="#{loginControl.logout()}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--<div class="py-5">-->
+                            <h:form>
+                                <div class="form-group">
+                                    <h:selectOneMenu class="dropdown-toggle form-control" value="#{shoppingListControl.groupListselected}">
+                                        <f:selectItem class="dropdown-item" itemValue="#{null}" itemDisabled="true" noSelectionOption="true"  itemLabel="Select a shopping list"/>
+                                        <f:selectItems class="dropdown-item" value="#{shoppingListControl.groupList}" var="x"
+                                                       itemLabel="#{x.groupname}" itemValue="#{x.groupname}" />
+                                    </h:selectOneMenu>
+                                    <br />
+                                    <h:commandButton value="Fetch List" class="btn btn-primary w-50" action="#{shoppingListControl.loadShoppinglist()}" />
+                                    <h:commandButton value="Reset" class="btn btn-primary w-50" action="#{shoppingListControl.resetAll()}" />
+                                </div>
+                            </h:form>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h:panelGroup rendered="#{shoppingListControl.rendershoppingListempty}">
+                                <h2 class="text-center text-uppercase">List is empty</h2>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-md-12">
+                            <!--<div class="py-5">-->
+                            <h:form rendered="#{!shoppingListControl.rendershoppingListempty and shoppingListControl.rendershoppingList}">
+                                <div class="form-group">
+                                    <h:selectOneListbox class="form-control" value="#{shoppingListControl.shoppingListselected}" >
+                                        <f:selectItems value="#{shoppingListControl.shoppingList}" var="y"
+                                                       itemLabel="#{y.listitems}" itemValue="#{y.id}" />
+                                    </h:selectOneListbox><br/>
+                                    <div class="col-md-12 align-self-center form-inline text-center">
+                                        <h:commandButton class="btn btn-primary w-100 text-center" value="Delete from list" action="#{shoppingListControl.deletefromlist()}"/>
+                                    </div>
+                                </div>
+                            </h:form>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h:form class="form-inline" rendered="#{shoppingListControl.rendershoppingList}">
+                                <p:autoComplete completeMethod="#{shoppingListControl.autocompletelistmethod()}" class="form-control w-75" a:placeholder="New item name" value="#{shoppingListControl.itemtobeadded}" />
+                                <h:commandButton class="btn btn-primary w-25" value="Add to list" action="#{shoppingListControl.addtoshoppinglist()}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h:panelGroup rendered="#{!shoppingListControl.rendershoppingList}">
+                                <h1 class="text-center text-uppercase">OR</h1>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h:form class="form-inline" rendered="#{!shoppingListControl.rendershoppingList}">
+                                <h:inputText class="form-control w-75" a:placeholder="New list name" value="#{shoppingListControl.listtobeadded}"/>
+                                <h:commandButton class="btn btn-primary w-25" value="Add new list" action="#{shoppingListControl.addnewshoppinglist()}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <br/>
+                            <h:form class="form-inline" rendered="#{shoppingListControl.rendershoppingList}">
+                                <h:commandButton class="btn w-100 btn-danger btn-lg active text-center" value="EXIT FROM LIST" action="#{shoppingListControl.exitfromgroup()}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h:form class="form-inline" rendered="#{shoppingListControl.rendershoppingList}">
+                                <h:inputText class="form-control w-75" a:placeholder="Add someone you know to group" value="#{shoppingListControl.emailtosendinvite}"/>
+                                <h:commandButton class="btn btn-success w-25" value="Invite" action="#{shoppingListControl.sendinvitation()}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </ui:define>
+    </ui:composition> 
+</html>
